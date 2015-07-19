@@ -7,7 +7,7 @@ output:
 
 
 ## Loading and preprocessing the data
-```{r Load_data,echo=TRUE,cache=TRUE}
+```{r,echo=TRUE,cache=TRUE}
 # 1. unzip and extract  extracted file to R
 unzip(zipfile = "activity.zip",files = "activity.csv",exdir = ".")
 dataFile <- read.csv(file = "activity.csv")
@@ -16,7 +16,7 @@ head(dataFile)
 
 ## What is mean total number of steps taken per day?
 
-```{r Mean_Total steps,echo=TRUE,cache=TRUE}
+```{r,echo=TRUE,cache=TRUE}
 # Find sum of steps per day and find mean per day
 steps_per_day<-tapply(X = dataFile$steps,INDEX = dataFile$date,FUN = sum,na.rm = TRUE)
 hist(steps_per_day,xlab = "Steps taken each day",ylab = "Number of days",main = "Steps taken per day", ylim = c(0,30), col = "seashell3")
@@ -27,7 +27,7 @@ median(steps_per_day)
 
 
 ## What is the average daily activity pattern?
-```{r Daily_Activity_Pattern , echo=TRUE,cache=TRUE}
+```{r, echo=TRUE,cache=TRUE}
 #Plot for average steps taken across all days per interval
 avg_steps_per_intvl <- tapply(X = dataFile$steps, INDEX = dataFile$interval,FUN = mean, na.rm = TRUE)
 intvls <- as.numeric(names(avg_steps_per_intvl))
@@ -38,7 +38,7 @@ names(max_avg)
 ```
 
 ## Imputing missing values
-```{r NA_Details, echo=TRUE,cache=TRUE}
+```{r, echo=TRUE,cache=TRUE}
 #Number of rows with missing values 
 nrow(dataFile[!complete.cases(dataFile),])
 #Filling in missing values with mean of steps per day
@@ -62,7 +62,7 @@ median(new_steps_per_day)
 Note that the mean and median remained the same. ie, Mean and Median values for Total number of steps taken per day is unaffected when missing data is replaced by average number of steps taken that day.  
   
 ## Are there differences in activity patterns between weekdays and weekends?
-```{r Compare_Activity, echo=TRUE,cache=TRUE}
+```{r, echo=TRUE,cache=TRUE}
 #Creating a factor with levels "Weekday" and "Weekend" in New_dataFile
 wkdys_vector <- c("Monday","Tuesday","Wednesday","Thursday","Friday")
 bln_wkdys <- weekdays(as.Date(New_dataFile$date)) %in% wkdys_vector
